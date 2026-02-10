@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodología de la Investigación 2026 | Investigación Aumentada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Chosen Palette: Academic Future -->
+    <!-- 
+        Colors:
+        - Background: Slate-50 (Clean, Academic)
+        - Primary: Indigo-900 (University Authority)
+        - Secondary/Accent: Cyan-600 (Technology/AI)
+        - Text: Slate-800 (Readability)
+        - Surface: White (Cards)
+    -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        academic: {
+                            base: '#f8fafc',
+                            dark: '#1e293b',
+                            primary: '#1e3a8a', // Indigo 900
+                            highlight: '#0891b2', // Cyan 600
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .nav-active {
+            border-bottom: 2px solid #0891b2;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Application Structure Plan:
+         1. Header: Course Identity & Vision.
+         2. Dashboard Layout:
+            - Top Row: "The Cycle" (Interactive Tabs) - Core methodology visualization.
+            - Middle Row: "The Roadmap" (Timeline) - 16-week breakdown.
+            - Bottom Row: "Competency Profile" (Radar Chart) vs. "Toolbox" (Filterable List).
+         3. Footer: Bibliography & Ethics.
+         
+         Logic: Users first understand the *Philosophy* (Cycle), then the *Schedule* (Roadmap), then the *Tools* needed to execute.
+    -->
+
+    <!-- Navigation / Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-4">
+                    <div class="bg-academic-primary text-white p-2 rounded-lg font-bold font-mono">0416</div>
+                    <div>
+                        <h1 class="text-xl font-bold text-slate-900 leading-tight">Metodología de la Investigación</h1>
+                        <p class="text-sm text-slate-500">Ph.D. Juan Andrés Sandoval Herrera | 2026</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <button onclick="scrollToSection('vision')" class="text-slate-600 hover:text-academic-primary transition-colors">Visión</button>
+                    <button onclick="scrollToSection('cycle')" class="text-slate-600 hover:text-academic-primary transition-colors">El Ciclo</button>
+                    <button onclick="scrollToSection('roadmap')" class="text-slate-600 hover:text-academic-primary transition-colors">Cronograma</button>
+                    <button onclick="scrollToSection('tools')" class="text-slate-600 hover:text-academic-primary transition-colors">Herramientas</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Section 1: Introduction / Vision -->
+        <section id="vision" class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="inline-block py-1 px-3 rounded-full bg-cyan-100 text-cyan-800 text-xs font-bold tracking-wider mb-4">NUEVA ERA</span>
+                <h2 class="text-4xl font-bold text-slate-900 mb-6">De la Búsqueda Pasiva a la <span class="text-academic-highlight">Inteligencia Curada</span></h2>
+                <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                    Este curso transforma el paradigma tradicional. Ya no se trata solo de recolectar información, sino de actuar como arquitectos de soluciones científicas. Utilizaremos la <strong>Inteligencia Artificial</strong> como un copiloto de alto rendimiento para abordar problemas de ingeniería de diversa complejidad, alineados con el <strong>ODS 9</strong>.
+                </p>
+                <div class="flex gap-4">
+                    <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm">
+                        <div class="text-3xl font-bold text-academic-primary mb-1">64h</div>
+                        <div class="text-sm text-slate-500">Trabajo Autónomo</div>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm">
+                        <div class="text-3xl font-bold text-academic-highlight mb-1">32h</div>
+                        <div class="text-sm text-slate-500">Docencia Directa</div>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm">
+                        <div class="text-3xl font-bold text-slate-800 mb-1">2</div>
+                        <div class="text-sm text-slate-500">Créditos</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Visualization: Comparison Chart -->
+            <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-slate-800">Perfil de Competencias del Estudiante</h3>
+                    <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">Modelo 2026</span>
+                </div>
+                <!-- Visualization & Content Choices: Radar chart to show the shift from purely manual research to a balanced profile of technical, ethical, and analytical skills. -->
+                <div class="chart-container">
+                    <canvas id="competencyChart"></canvas>
+                </div>
+                <p class="text-xs text-center text-slate-400 mt-4">Comparativa: Enfoque Tradicional vs. Investigación Aumentada</p>
+            </div>
+        </section>
+
+        <!-- Section 2: The Cycle (Interactive) -->
+        <section id="cycle" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-8 border-b border-slate-100">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">El Ciclo de Investigación Aumentada</h2>
+                <p class="text-slate-600">Explora las 5 fases del proceso. Haz clic en cada fase para ver cómo colaboran el Humano y la IA.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-12 min-h-[400px]">
+                <!-- Interactive Menu -->
+                <div class="lg:col-span-4 bg-slate-50 p-6 flex flex-col gap-2 border-r border-slate-100">
+                    <button onclick="updateCycle('ideacion')" id="btn-ideacion" class="cycle-btn text-left p-4 rounded-lg transition-all hover:bg-white hover:shadow-md border border-transparent focus:outline-none bg-white shadow-md border-slate-200">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Fase 1</span>
+                        <span class="text-lg font-bold text-slate-800">Ideación</span>
+                    </button>
+                    <button onclick="updateCycle('mapeo')" id="btn-mapeo" class="cycle-btn text-left p-4 rounded-lg transition-all hover:bg-white hover:shadow-md border border-transparent focus:outline-none">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Fase 2</span>
+                        <span class="text-lg font-bold text-slate-800">Mapeo y Estado del Arte</span>
+                    </button>
+                    <button onclick="updateCycle('arquitectura')" id="btn-arquitectura" class="cycle-btn text-left p-4 rounded-lg transition-all hover:bg-white hover:shadow-md border border-transparent focus:outline-none">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Fase 3</span>
+                        <span class="text-lg font-bold text-slate-800">Arquitectura Metodológica</span>
+                    </button>
+                    <button onclick="updateCycle('analisis')" id="btn-analisis" class="cycle-btn text-left p-4 rounded-lg transition-all hover:bg-white hover:shadow-md border border-transparent focus:outline-none">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Fase 4</span>
+                        <span class="text-lg font-bold text-slate-800">Análisis de Datos</span>
+                    </button>
+                    <button onclick="updateCycle('difusion')" id="btn-difusion" class="cycle-btn text-left p-4 rounded-lg transition-all hover:bg-white hover:shadow-md border border-transparent focus:outline-none">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Fase 5</span>
+                        <span class="text-lg font-bold text-slate-800">Difusión y Pitch</span>
+                    </button>
+                </div>
+
+                <!-- Content Display Area -->
+                <div class="lg:col-span-8 p-8 flex flex-col justify-center bg-white relative">
+                    <div id="cycle-content" class="space-y-8 animate-fade-in">
+                        <!-- Dynamic Content Loaded Here via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The 16-Week Roadmap -->
+        <section id="roadmap">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Cronograma Semanal</h2>
+                <p class="text-slate-600">Ruta de aprendizaje optimizada. Navega por los cortes para ver los hitos semanales.</p>
+            </div>
+
+            <!-- Visualization & Content Choices: Interactive Timeline using grid layout. Goal: "Change/Process". -->
+            <div class="flex gap-4 mb-6 overflow-x-auto pb-2">
+                <button onclick="filterRoadmap('all')" class="roadmap-filter px-4 py-2 bg-academic-primary text-white rounded-full text-sm font-medium shadow-sm">Ver Todo</button>
+                <button onclick="filterRoadmap('corte1')" class="roadmap-filter px-4 py-2 bg-white text-slate-600 border border-slate-200 rounded-full text-sm font-medium hover:bg-slate-50">Corte 1: Fundamentación</button>
+                <button onclick="filterRoadmap('corte2')" class="roadmap-filter px-4 py-2 bg-white text-slate-600 border border-slate-200 rounded-full text-sm font-medium hover:bg-slate-50">Corte 2: Diseño</button>
+                <button onclick="filterRoadmap('corte3')" class="roadmap-filter px-4 py-2 bg-white text-slate-600 border border-slate-200 rounded-full text-sm font-medium hover:bg-slate-50">Corte 3: Ejecución</button>
+            </div>
+
+            <div id="roadmap-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Cards generated by JS -->
+            </div>
+        </section>
+
+        <!-- Section 4: Tools & Ethics (Grid Layout) -->
+        <section id="tools" class="grid lg:grid-cols-3 gap-8">
+            <!-- Tools Column -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 h-full flex flex-col">
+                    <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                        <h2 class="text-xl font-bold text-slate-900">Caja de Herramientas IA</h2>
+                        <span class="text-xs bg-academic-highlight text-white px-2 py-1 rounded">2026 Edition</span>
+                    </div>
+                    <div class="p-6 grid sm:grid-cols-2 gap-4 flex-grow content-start">
+                        <!-- Tool Card 1 -->
+                        <div class="p-4 border border-slate-100 rounded-lg bg-slate-50 hover:border-cyan-300 transition-colors group">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold">Id</div>
+                                <h3 class="font-bold text-slate-800">LLMs (Claude / GPT)</h3>
+                            </div>
+                            <p class="text-sm text-slate-600 mb-2">Refinamiento de preguntas e ideación sistémica.</p>
+                            <span class="text-xs text-cyan-600 font-mono group-hover:underline cursor-help">Uso: Ideación</span>
+                        </div>
+                        <!-- Tool Card 2 -->
+                        <div class="p-4 border border-slate-100 rounded-lg bg-slate-50 hover:border-cyan-300 transition-colors group">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded bg-purple-100 text-purple-700 flex items-center justify-center font-bold">Ma</div>
+                                <h3 class="font-bold text-slate-800">Consensus / Elicit</h3>
+                            </div>
+                            <p class="text-sm text-slate-600 mb-2">Motores de búsqueda semántica para papers reales.</p>
+                            <span class="text-xs text-purple-600 font-mono group-hover:underline cursor-help">Uso: Estado del Arte</span>
+                        </div>
+                        <!-- Tool Card 3 -->
+                        <div class="p-4 border border-slate-100 rounded-lg bg-slate-50 hover:border-cyan-300 transition-colors group">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded bg-green-100 text-green-700 flex items-center justify-center font-bold">Da</div>
+                                <h3 class="font-bold text-slate-800">Python + Pandas AI</h3>
+                            </div>
+                            <p class="text-sm text-slate-600 mb-2">Generación de código para análisis estadístico.</p>
+                            <span class="text-xs text-green-600 font-mono group-hover:underline cursor-help">Uso: Cuantitativo</span>
+                        </div>
+                        <!-- Tool Card 4 -->
+                        <div class="p-4 border border-slate-100 rounded-lg bg-slate-50 hover:border-cyan-300 transition-colors group">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded bg-orange-100 text-orange-700 flex items-center justify-center font-bold">Wr</div>
+                                <h3 class="font-bold text-slate-800">DeepL Write / Zotero</h3>
+                            </div>
+                            <p class="text-sm text-slate-600 mb-2">Corrección de estilo y gestión bibliográfica.</p>
+                            <span class="text-xs text-orange-600 font-mono group-hover:underline cursor-help">Uso: Escritura</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ethics Column -->
+            <div class="lg:col-span-1">
+                <div class="bg-academic-dark text-white rounded-xl shadow-lg h-full flex flex-col relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <div class="p-6 border-b border-slate-700">
+                        <h2 class="text-xl font-bold">Protocolo Ético</h2>
+                        <p class="text-slate-400 text-sm">Decálogo obligatorio de uso.</p>
+                    </div>
+                    <div class="p-6 space-y-6 flex-grow">
+                        <div class="flex gap-4">
+                            <div class="text-cyan-400 font-bold text-xl">01</div>
+                            <div>
+                                <h4 class="font-bold text-slate-200">Transparencia</h4>
+                                <p class="text-sm text-slate-400">Declarar explícitamente qué herramienta se usó y en qué sección.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="text-cyan-400 font-bold text-xl">02</div>
+                            <div>
+                                <h4 class="font-bold text-slate-200">Verificación</h4>
+                                <p class="text-sm text-slate-400">Prohibido citar fuentes no verificadas en Scopus/ScienceDirect.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="text-cyan-400 font-bold text-xl">03</div>
+                            <div>
+                                <h4 class="font-bold text-slate-200">Responsabilidad</h4>
+                                <p class="text-sm text-slate-400">Tú eres el autor. La IA es el asistente. Tú validas la verdad.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bibliography Footer -->
+        <footer class="bg-white border-t border-slate-200 pt-8 pb-12">
+            <h3 class="text-center font-bold text-slate-900 mb-6">Bibliografía Esencial</h3>
+            <div class="grid md:grid-cols-3 gap-6 text-sm text-slate-600">
+                <div class="bg-slate-50 p-4 rounded text-center">
+                    <p class="font-bold text-slate-800">Leedy & Ormrod (2024)</p>
+                    <p class="italic">Practical Research: Planning and Design</p>
+                    <span class="block mt-2 text-xs text-academic-primary">Texto Guía (Inglés)</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded text-center">
+                    <p class="font-bold text-slate-800">Hernández-Sampieri (2020)</p>
+                    <p class="italic">Metodología de la Investigación</p>
+                    <span class="block mt-2 text-xs text-academic-primary">Fundamentos</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded text-center">
+                    <p class="font-bold text-slate-800">Ethan Mollick (2024)</p>
+                    <p class="italic">Co-Intelligence</p>
+                    <span class="block mt-2 text-xs text-academic-primary">Filosofía IA</span>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-slate-400 text-xs">
+                &copy; 2026 Universidad de América | Ph.D. Juan Andrés Sandoval Herrera
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- DATA STORE ---
+        
+        // Cycle Data
+        const cycleData = {
+            ideacion: {
+                title: "Fase 1: Ideación",
+                human: "Definir impacto social, aplicar criterios FINER, validar relevancia ODS 9.",
+                ai: "Brainstorming de preguntas, refinamiento de variables (Claude/GPT).",
+                result: "Pregunta de Investigación Validada",
+                icon: "💡"
+            },
+            mapeo: {
+                title: "Fase 2: Mapeo y Estado del Arte",
+                human: "Evaluación crítica de fuentes, lectura profunda, síntesis de brechas.",
+                ai: "Búsqueda semántica masiva, mapas de grafos (Consensus, Elicit).",
+                result: "Estado del Arte Bibliométrico",
+                icon: "🗺️"
+            },
+            arquitectura: {
+                title: "Fase 3: Arquitectura Metodológica",
+                human: "Diseño del rigor, selección de instrumentos, validación con Leedy & Ormrod.",
+                ai: "Simulación de escenarios, validación de coherencia interna.",
+                result: "Diseño Metodológico Robusto",
+                icon: "🏗️"
+            },
+            analisis: {
+                title: "Fase 4: Análisis de Datos",
+                human: "Interpretación de hallazgos, detección de anomalías, discusión de resultados.",
+                ai: "Generación de scripts (Python/R), limpieza de datos.",
+                result: "Análisis Crítico de Resultados",
+                icon: "📊"
+            },
+            difusion: {
+                title: "Fase 5: Difusión y Pitch",
+                human: "Defensa oral, ética argumentativa, persuasión.",
+                ai: "Corrección de estilo (DeepL), diseño visual de soportes.",
+                result: "Artículo o Pitch de Innovación",
+                icon: "🚀"
+            }
+        };
+
+        // Roadmap Data
+        const roadmapData = [
+            // Corte 1
+            { week: 1, title: "Investigación 5.0", type: "corte1", desc: "Introducción, prompt engineering básico, definición de problema.", ai: "Laboratorio de Prompts" },
+            { week: 2, title: "Pregunta FINER", type: "corte1", desc: "Delimitación del problema y variables.", ai: "LLMs para refinamiento" },
+            { week: 3, title: "Mapeo Bibliográfico", type: "corte1", desc: "Búsqueda avanzada de fuentes.", ai: "Consensus / Connected Papers" },
+            { week: 4, title: "Estado del Arte", type: "corte1", desc: "Síntesis y redacción crítica.", ai: "Asistentes de lectura PDF" },
+            { week: 5, title: "Marco Teórico", type: "corte1", desc: "Jerarquías conceptuales.", ai: "Mapas conceptuales IA" },
+            // Corte 2
+            { week: 6, title: "Enfoques Cuali/Cuanti", type: "corte2", desc: "Introducción a metodologías.", ai: "Ejemplos generativos" },
+            { week: 7, title: "Metodología Mixta", type: "corte2", desc: "Integración de visiones.", ai: "Simulación de casos" },
+            { week: 8, title: "Diseño Metodológico", type: "corte2", desc: "Rigor según Leedy & Ormrod.", ai: "Checklist IA vs Humano" },
+            { week: 9, title: "Población y Muestra", type: "corte2", desc: "Cálculo y selección.", ai: "Code Interpreter (Stats)" },
+            { week: 10, title: "Instrumentos", type: "corte2", desc: "Diseño de encuestas/protocolos.", ai: "Validación de ítems" },
+            { week: 11, title: "Ética e Integridad", type: "corte2", desc: "Plagio vs Asistencia.", ai: "Detección de sesgos" },
+            // Corte 3
+            { week: 12, title: "Recolección Datos", type: "corte3", desc: "Trabajo de campo / Simulación.", ai: "Automatización de logs" },
+            { week: 13, title: "Tratamiento Datos", type: "corte3", desc: "Limpieza y estructuración.", ai: "Pandas AI / Excel AI" },
+            { week: 14, title: "Análisis Resultados", type: "corte3", desc: "Contrastación con teoría.", ai: "Insight generation" },
+            { week: 15, title: "Escritura & Pitch", type: "corte3", desc: "Preparación final.", ai: "DeepL Write / Slide AI" },
+            { week: 16, title: "Sustentación", type: "corte3", desc: "Defensa del proyecto.", ai: "N/A (Evaluación Humana)" },
+        ];
+
+        // --- FUNCTIONS ---
+
+        function initCycle() {
+            updateCycle('ideacion');
+        }
+
+        function updateCycle(key) {
+            // Update buttons styling
+            document.querySelectorAll('.cycle-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'shadow-md', 'border-slate-200');
+                btn.classList.add('border-transparent');
+            });
+            document.getElementById(`btn-${key}`).classList.add('bg-white', 'shadow-md', 'border-slate-200');
+            document.getElementById(`btn-${key}`).classList.remove('border-transparent');
+
+            // Update content with animation
+            const contentDiv = document.getElementById('cycle-content');
+            const data = cycleData[key];
+            
+            contentDiv.innerHTML = `
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="text-4xl">${data.icon}</div>
+                    <h3 class="text-3xl font-bold text-slate-800">${data.title}</h3>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center gap-2 mb-3 text-academic-primary">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            <h4 class="font-bold text-sm uppercase tracking-wide">Rol Humano (Crítico)</h4>
+                        </div>
+                        <p class="text-slate-700 leading-relaxed">${data.human}</p>
+                    </div>
+                    
+                    <div class="p-6 bg-cyan-50 rounded-xl border border-cyan-100">
+                        <div class="flex items-center gap-2 mb-3 text-cyan-700">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <h4 class="font-bold text-sm uppercase tracking-wide">Apoyo IA (Técnico)</h4>
+                        </div>
+                        <p class="text-slate-700 leading-relaxed">${data.ai}</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-4 border-l-4 border-green-500 bg-green-50 text-green-800 rounded-r-lg">
+                    <span class="font-bold">Resultado Esperado:</span> ${data.result}
+                </div>
+            `;
+        }
+
+        function renderRoadmap(filterType = 'all') {
+            const container = document.getElementById('roadmap-container');
+            container.innerHTML = '';
+            
+            const filtered = filterType === 'all' ? roadmapData : roadmapData.filter(d => d.type === filterType);
+            
+            filtered.forEach(item => {
+                let badgeColor = '';
+                let typeLabel = '';
+                if(item.type === 'corte1') { badgeColor = 'bg-blue-100 text-blue-800'; typeLabel = 'Corte 1'; }
+                if(item.type === 'corte2') { badgeColor = 'bg-purple-100 text-purple-800'; typeLabel = 'Corte 2'; }
+                if(item.type === 'corte3') { badgeColor = 'bg-green-100 text-green-800'; typeLabel = 'Corte 3'; }
+
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-3xl font-mono font-bold text-slate-200 group-hover:text-academic-highlight transition-colors">W${item.week}</span>
+                        <span class="text-xs px-2 py-1 rounded-full font-bold ${badgeColor}">${typeLabel}</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2 leading-tight">${item.title}</h4>
+                    <p class="text-sm text-slate-500 mb-4">${item.desc}</p>
+                    <div class="pt-4 border-t border-slate-100 flex items-center gap-2 text-xs font-mono text-cyan-700">
+                        <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+                        IA: ${item.ai}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Update filter buttons
+            document.querySelectorAll('.roadmap-filter').forEach(btn => {
+                if(btn.getAttribute('onclick').includes(filterType)) {
+                    btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+                    btn.classList.add('bg-academic-primary', 'text-white', 'border-academic-primary');
+                } else {
+                    btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+                    btn.classList.remove('bg-academic-primary', 'text-white', 'border-academic-primary');
+                }
+            });
+        }
+
+        function filterRoadmap(type) {
+            renderRoadmap(type);
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- CHARTS ---
+
+        function initCharts() {
+            const ctx = document.getElementById('competencyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Análisis Crítico', 'Uso Ético IA', 'Inglés Técnico', 'Diseño Metodológico', 'Gestión de Datos', 'Comunicación'],
+                    datasets: [{
+                        label: 'Investigación Aumentada (2026)',
+                        data: [95, 90, 85, 90, 85, 90],
+                        fill: true,
+                        backgroundColor: 'rgba(8, 145, 178, 0.2)',
+                        borderColor: '#0891b2',
+                        pointBackgroundColor: '#0891b2',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#0891b2'
+                    }, {
+                        label: 'Modelo Tradicional',
+                        data: [70, 20, 50, 75, 40, 60],
+                        fill: true,
+                        backgroundColor: 'rgba(148, 163, 184, 0.2)',
+                        borderColor: '#94a3b8',
+                        pointBackgroundColor: '#94a3b8',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#94a3b8',
+                        borderDash: [5, 5]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: { borderWidth: 3 }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e2e8f0' },
+                            grid: { color: '#e2e8f0' },
+                            pointLabels: {
+                                font: {
+                                    family: 'Inter',
+                                    size: 11,
+                                    weight: 'bold'
+                                },
+                                color: '#475569'
+                            },
+                            ticks: { display: false, max: 100 }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        // --- INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            initCycle();
+            renderRoadmap('all');
+            initCharts();
+        });
+
+    </script>
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</body>
+</html>
